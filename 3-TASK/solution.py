@@ -161,25 +161,25 @@ class Solution:
             res_set = set()
             for label in outputs_labels:
                 if label == 'O':
-                    if begin == 0 and end == 0:
+                    if begin == end:
                         continue
                     else:
                         end = spans[idx][jdx][0]-1
-                        if begin >= end:
+                        if begin == end:
                             continue
                         res_set.add((begin, end, postfix))
                         begin = end = spans[idx][jdx][1]
                         postfix = ''
 
                 else:
-                    split_label = label.split('-')
+                    split_label = label.split('-')task-3 model was trained
                     if split_label[0] == 'B' and postfix == '':
                         postfix = split_label[1]
                         begin = spans[idx][jdx][0]
                         end = spans[idx][jdx][1]
                     elif split_label[0] == 'B':
                         end = spans[idx][jdx][0] - 1
-                        if begin >= end:
+                        if begin == end:
                             continue
                         res_set.add((begin, end, postfix))
                         begin = spans[idx][jdx][0]
@@ -187,7 +187,7 @@ class Solution:
                     else:
                         end = spans[idx][jdx][1]
                 jdx += 1
-            if end > begin:
+            if end != begin and postfix != '':
                 res_set.add((begin, end, postfix))
             idx += 1
             result.append(res_set)
