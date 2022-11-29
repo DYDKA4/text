@@ -172,7 +172,7 @@ class Solution:
                         postfix = ''
 
                 else:
-                    split_label = label.split('-')task-3 model was trained
+                    split_label = label.split('-')
                     if split_label[0] == 'B' and postfix == '':
                         postfix = split_label[1]
                         begin = spans[idx][jdx][0]
